@@ -13,6 +13,16 @@ using u32 = unsigned int;
 
 typedef unsigned int u32;
 
+u32 SingleScalar(u32 Count, u32 *Input) {
+    // TimeBlock("SingleScalar");
+    u32 Sum = 0;
+    for (u32 Index = 0; Index < Count; ++Index) {
+        Sum += Input[Index];
+    }
+    return Sum;
+}
+
+
 
 void measure_cycles(u32 (*func)(u32, u32*), u32 Count, u32* Input, const char* name) {
     std::cout << "---------- " << name << " Start ------------" << std::endl;
@@ -35,7 +45,7 @@ int main(int argc, char** argv) {
     u32 n = std::atoi(argv[1]);
     std::vector<u32> numbers(n, 1);
 
-    // measure_cycles(SingleScalar, n, numbers.data(), "SingleScalar");
+    measure_cycles(SingleScalar, n, numbers.data(), "SingleScalar");
     
 
     return 0;
