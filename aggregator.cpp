@@ -22,15 +22,6 @@ u32 SingleScalar(u32 Count, u32 *Input) {
     return Sum;
 }
 
-u32 SingleScalar(u32 Count, u32 *Input) {
-    // TimeBlock("SingleScalar");
-    u32 Sum = 0;
-    for (u32 Index = 0; Index < Count; ++Index) {
-        Sum += Input[Index];
-    }
-    return Sum;
-}
-
 u32 Unroll2Scalar(u32 Count, u32 *Input) {
     // TimeBlock("Unroll2Scalar");
     u32 Sum = 0;
@@ -261,6 +252,18 @@ int main(int argc, char** argv) {
     std::vector<u32> numbers(n, 1);
 
     measure_cycles(SingleScalar, n, numbers.data(), "SingleScalar");
+    measure_cycles(Unroll2Scalar, n, numbers.data(), "Unroll2Scalar");
+    measure_cycles(Unroll4Scalar, n, numbers.data(), "Unroll4Scalar");
+    measure_cycles(DualScalar, n, numbers.data(), "DualScalar");
+    measure_cycles(QuadScalar, n, numbers.data(), "QuadScalar");
+    measure_cycles(QuadScalarPtr, n, numbers.data(), "QuadScalarPtr");
+    measure_cycles(TreeScalarPtr, n, numbers.data(), "TreeScalarPtr");
+    measure_cycles(SingleSSE, n, numbers.data(), "SingleSSE");
+    measure_cycles(SingleAVX, n, numbers.data(), "SingleAVX");
+    measure_cycles(DualAVX, n, numbers.data(), "DualAVX");
+    measure_cycles(QuadAVX, n, numbers.data(), "QuadAVX");
+    measure_cycles(QuadAVXPtr, n, numbers.data(), "QuadAVXPtr");
+    measure_cycles(ParallelQuadAVXPtr, n, numbers.data(), "ParallelQuadAVXPtr");
     
 
     return 0;
